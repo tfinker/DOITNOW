@@ -9,8 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+       
+        ZStack(alignment: .top) {
+     
+            Ellipse()
+                .fill(Color.orange)
+                .frame(width: 800, height: 1000)
+                .position(x: 300, y: 000)
+            
+            
+
+            SubmissionForm()
+        
+        }
+            
+
+            
     }
 }
 
