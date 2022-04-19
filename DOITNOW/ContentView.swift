@@ -9,22 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-       
-        ZStack(alignment: .top) {
-     
-            Ellipse()
-                .fill(Color.orange)
-                .frame(width: 800, height: 1000)
-                .position(x: 300, y: 000)
+        TabView(selection: .constant(1)) {
             
+            TabDoIt()
+                .tabItem ({
+                    Label("DO IT", systemImage: "checkmark")
+                    
+                })
+                .tag(1)
             
-
-            SubmissionForm()
-        
+            TabPlanIt()
+                .tabItem {
+                    Label("PLAN IT", systemImage: "plus")
+                }
+                .tag(2)
         }
-            
+        .accentColor(.black)
 
-            
     }
 }
 
