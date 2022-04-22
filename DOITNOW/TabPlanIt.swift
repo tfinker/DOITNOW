@@ -8,17 +8,34 @@
 import SwiftUI
 
 struct TabPlanIt: View {
+    @StateObject private var activityList = TaskManager()
+   
     var body: some View {
         
         NavigationView {
             
             ZStack(alignment: .top) {
+                
+                
                 Background()
                 
-                NavigationLink(destination: SubmissionForm()) {
-                    Text("Add")
-                }
-                .accentColor(.blue)
+               
+                
+                VStack{
+                    
+                    NavigationLink(destination: SubmissionForm()) {
+                        Text("Add")
+                    }
+                    .accentColor(.blue)
+                    
+                    List(activityList.tasks, id: \.id){
+                        task in
+                        Text(task.activity)
+                        Text(task.date, format: .dateTime)
+                    }
+                }.onAppear{activityList.getAllTask()}
+                        
+                
             }
         }
         .accentColor(.black)

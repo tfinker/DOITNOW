@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+
 struct SubmissionForm: View {
+    @StateObject private var activityList = TaskManager()
+
     
     enum SportOptions: String, CaseIterable, Identifiable {
         case walk
@@ -46,7 +49,9 @@ struct SubmissionForm: View {
             }
             .navigationBarItems(trailing:
                 Button("Submit") {
-                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                activityList.activity = selectedSport.rawValue
+                activityList.date = datePicked
+                activityList.save()
             }.buttonStyle(.borderedProminent))
         }
     }
