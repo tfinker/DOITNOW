@@ -11,11 +11,11 @@ import Foundation
 class WeatherService: ObservableObject{
     @Published var errorMessage: String?
     @Published var forecast: WeatherData?
-    @Published var condition: String?
     let locationManager = LocationManager()
 
+    
     func getWeather(lat: Double, lon: Double){
-        let weatherURL = "https://api.openweathermap.org/data/2.5/onecall?units=metric&exclude=hourly,current,minutely,alerts&appid=1f2a622de40bc9dd2a29420d2bf1f881"
+        let weatherURL = "https://api.openweathermap.org/data/2.5/forecast?&appid=1f2a622de40bc9dd2a29420d2bf1f881&units=metric"
         let urlString = "\(weatherURL)&lat=\(lat)&lon=\(lon)"
         print(urlString)
          
@@ -37,8 +37,6 @@ class WeatherService: ObservableObject{
                     do {
                         let decodedData = try JSONDecoder().decode(WeatherData.self, from: data)
                         self.forecast = decodedData
-                        let id = decodedData.daily[0].weather[0].id
-                        self.condition = self.getConditionName(weatherID: id)
                         print("WeatherData...\(String(describing: self.forecast))")
                     } catch let error {
                         print("Error decoding: ", error)
@@ -69,5 +67,5 @@ class WeatherService: ObservableObject{
             return "cloud"
         }
     }
-    
+
 }

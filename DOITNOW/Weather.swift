@@ -10,25 +10,21 @@ import Foundation
 import SwiftUI
 
 struct WeatherData: Decodable{
-    let daily: [Daily]
+    let list: [List]
 }
 
-struct Daily: Decodable{
-    let weather: [Weather]
-    let temp: Temp
+struct List: Decodable{
     let dt: Date
-    let uvi: Double
-    let pop: Double
+    let main: Main
+    let weather: [Weather]
 }
-    struct Weather: Decodable{
-        let main: String
-        let icon: String
-        let id: Int
-    }
-    
-    struct Temp: Decodable{
-        let morn: Double
-        let day: Double
-        let eve: Double
-    }
 
+struct Main: Decodable{
+    let temp: Double
+}
+
+struct Weather: Decodable{
+    let id: Int
+    let main: String
+    let icon: String
+}
