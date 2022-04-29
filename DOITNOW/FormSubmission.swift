@@ -21,7 +21,7 @@ struct SubmissionForm: View {
     }
     @State private var selectedSport = SportOptions.walk
     @State private var datePicked = Date()
-    
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ZStack(alignment: .top) {
             
@@ -52,6 +52,7 @@ struct SubmissionForm: View {
                 activityList.activity = selectedSport.rawValue
                 activityList.date = datePicked
                 activityList.save()
+                self.presentationMode.wrappedValue.dismiss()
             }.buttonStyle(.borderedProminent))
         }
     }
