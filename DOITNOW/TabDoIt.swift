@@ -9,19 +9,20 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
-struct TabDoIt: View {
+struct TabDoIt: View{
     
     @StateObject var locationManager = LocationManager()
-    var id: Int?
+
     @StateObject var weatherService = WeatherService()
     var sport: String? = "CYCLE"
     var date: Date? = Date()
-    @State var lat: Double?
-    @State var lon: Double?
+    @State var id: Int?
     @State var selected = "MORNING"
     @State var isExpanded = false
     @State var showZoom = false
-
+    @State var temp: Double?
+    @State var conditionImage: Image?
+    
     var body: some View {
         
         if weatherService.errorMessage != nil{
@@ -37,9 +38,11 @@ struct TabDoIt: View {
                     Text("")
                         .onAppear(perform: {self.weatherService.getWeather(lat: lat, lon: lon)})
                         .onAppear(perform: {self.locationManager.getCity(lat: lat, lon: lon)})
-
+                    
                         
                         if let forecastDaily = weatherService.forecast?.list[0] {
+                            
+                    
                             VStack{
                                 if sport != nil{
                                     Text("\(sport!)")
@@ -80,13 +83,15 @@ struct TabDoIt: View {
                                         .foregroundColor(.gray)
                                 }
                                 HStack{
-                                    Text("\(forecastDaily.main.temp ,specifier: "%.0f")°C")
-                                        .font(.title)
-                                        .padding(.horizontal)
-                                        .foregroundColor(.black)
-                                        .padding(.bottom, 75)
-                                    if let id = forecastDaily.weather[0].id{
-                                        Image(systemName: weatherService.getConditionName(weatherID: id))
+                                    if let temperature = forecastDaily.main.temp{
+                                        Text("\(temperature ,specifier: "%.0f")°C").onAppear(perform: {self.temp = temperature})
+                                            .font(.title)
+                                            .padding(.horizontal)
+                                            .foregroundColor(.black)
+                                            .padding(.bottom, 75)
+                                    }
+                                    if let idString = forecastDaily.weather[0].id{
+                                        Image(systemName: weatherService.getConditionName(weatherID: idString)).onAppear(perform: {self.conditionImage = Image(systemName: weatherService.getConditionName(weatherID: idString))})
                                             .font(.title)
                                             .padding(.horizontal)
                                             .foregroundColor(.black)
@@ -100,6 +105,21 @@ struct TabDoIt: View {
             
                         }
                 }
+            }
+            
+            VStack{
+                Button(action: {
+                    self.showZoom = true;
+                    print(self.temp!)
+                }) {
+                    Image(systemName: "magnifyingglass.circle.fill")
+                }
+                .sheet(isPresented: $showZoom) {
+                    ZoomView(temp: self.$temp, conditionImage: self.$conditionImage)
+                }
+                    .font(.title)
+                    .offset(x: 140, y: 265)
+                    .foregroundColor(.white)
             }
             
             //Code sourced from https://www.youtube.com/watch?v=0LrP6dv8tHY
@@ -138,17 +158,6 @@ struct TabDoIt: View {
                                 .offset(y: 180)
             }.padding(.all)
             Spacer()
-            
-            VStack{
-                Button(action: {
-                    self.showZoom = true
-                }) {
-                    Image(systemName: "magnifyingglass.circle.fill")
-                }
-                    .font(.title)
-                    .offset(x: 140, y: 265)
-                    .foregroundColor(.white)
-            }
         }
     }
 }
