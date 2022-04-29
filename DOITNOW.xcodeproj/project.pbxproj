@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
 		196907382812C67700490CE1 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 196907362812C67700490CE1 /* CoreDataModel.xcdatamodeld */; };
 		1969073B2812C79400490CE1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1969073A2812C79400490CE1 /* CoreDataManager.swift */; };
 		1969073D2812C7FB00490CE1 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1969073C2812C7FB00490CE1 /* TaskManager.swift */; };
