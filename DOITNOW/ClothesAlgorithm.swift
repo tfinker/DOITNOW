@@ -118,7 +118,11 @@ var runOptions = [
     runDanger :     [run3, run3, run3]
 ]
 
-var pictureTypes = [
+// idea is we have different images for each possibility so that it doesn't get boring
+// the zoom image will be the same name with -zoom appended
+// algo with randomly select an image from the list each time it runs
+
+var pictureNames = [
     cycle1A: ["picture1A-1", "picture1A-2"],
     cycle1B: ["picture1B-1", "picture1B-2"],
     cycle1C: ["picture1C-1", "picture1C-2"],
@@ -146,13 +150,8 @@ var pictureTypes = [
 
 
 
-
-
-var temp = 12
-var code = 201
-
 func getRandomPictureForType(type: String)->String?{
-    let pictures = pictureTypes[type];
+    let pictures = pictureNames[type];
     var total = pictures?.count ?? 0;
     if (total > 0){
         total -= 1
