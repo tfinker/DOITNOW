@@ -12,12 +12,14 @@ class WeatherService: ObservableObject{
     @Published var errorMessage: String?
     @Published var forecast: WeatherData?
     let locationManager = LocationManager()
+    let taskManager = TaskManager()
 
     
     func getWeather(lat: Double, lon: Double){
         let weatherURL = "https://api.openweathermap.org/data/2.5/forecast?&appid=1f2a622de40bc9dd2a29420d2bf1f881&units=metric"
         let urlString = "\(weatherURL)&lat=\(lat)&lon=\(lon)"
         print(urlString)
+        print("IT RAN")
          
         guard let url = URL(string: urlString)
         else { fatalError("Missing URL")}
@@ -67,5 +69,30 @@ class WeatherService: ObservableObject{
             return "cloud"
         }
     }
+    
+//    func getForecast(){
+//        let lat = locationManager.lastLocation?.coordinate.latitude
+//        let lon = locationManager.lastLocation?.coordinate.longitude
+//        if lat != nil{
+//            self.getWeather(lat: lat!, lon: lon!)
+//        }
+//    }
+//    
+//    func getMorningTime(){
+//        let lat = locationManager.lastLocation?.coordinate.latitude
+//        let lon = locationManager.lastLocation?.coordinate.longitude
+//        if lat != nil{
+//            self.getWeather(lat: lat!, lon: lon!)
+//        }
+//        taskManager.getAllTask()
+//        taskManager.getNextActivity()
+//        for i in self.forecast!.list{
+//            if i.dt.formatted(date: .abbreviated, time: .omitted) == taskManager.nextDate!.formatted(date: .abbreviated, time: .omitted){
+//                print("found")
+//            }else{
+//                print("kys")
+//            }
+//        }
+//    }
 
 }

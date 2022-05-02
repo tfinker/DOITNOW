@@ -4,16 +4,18 @@
 //
 //  Created by Madi Berman on 4/22/22.
 //
+//
 
 import UIKit
 import Foundation
 import SwiftUI
 
 struct WeatherData: Decodable{
-    let list: [List]
+    let list: [ListJ]
 }
 
-struct List: Decodable{
+struct ListJ: Decodable{
+    let dt_txt: String
     let dt: Date
     let main: Main
     let weather: [Weather]
