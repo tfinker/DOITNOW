@@ -13,13 +13,13 @@ struct SubmissionForm: View {
 
     
     enum SportOptions: String, CaseIterable, Identifiable {
-        case walk
-        case run
-        case cycle
+        case Walk
+        case Run
+        case Cycle
         
         var id: SportOptions { self }
     }
-    @State private var selectedSport = SportOptions.walk
+    @State private var selectedSport = SportOptions.Walk
     @State private var datePicked = Date()
     
     var body: some View {

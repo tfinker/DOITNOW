@@ -28,6 +28,18 @@ class TaskManager: ObservableObject {
         
     }
     
+    
+   
+    
+    
+    func delete(_ tasks: TaskViewManager) {
+        let actualactivity = CoreDataManager.shared.getTaskbyId(id: tasks.id)
+        if let actualactivity = actualactivity {
+        CoreDataManager.shared.deleteTasks(task: actualactivity)
+        
+    }
+    }
+    
     func getAllTask() {
         tasks =  CoreDataManager.shared.getAllTask().map(TaskViewManager.init)
     }
