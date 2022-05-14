@@ -56,9 +56,7 @@ struct TabPlanIt: View {
                         Button("Add") {
                             subFormActive=true;
                         }.buttonStyle(.borderedProminent)
-                    }
-                    
-                )
+                    })
                         
             }.onAppear{activityList.getAllTask()}
             .onAppear{activityList.getNextActivity()}

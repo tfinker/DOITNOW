@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         TabView() {
             
-            TabDoIt(taskManager: database)
+            TabDoIt(activityList: database)
                 .tabItem ({
                     Label("DO IT", systemImage: "checkmark")
                     
