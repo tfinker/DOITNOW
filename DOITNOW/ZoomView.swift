@@ -17,7 +17,7 @@ struct ZoomView: View{
     var body: some View {
         
         ZStack{
-            Background()
+            //Background()
         
         VStack{
             HStack{

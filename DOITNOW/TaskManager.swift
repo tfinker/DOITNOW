@@ -16,7 +16,7 @@ class TaskManager: ObservableObject {
     @Published var nextActivity: TaskViewManager?
     @Published var nextTask: String?
     @Published var nextDate: Date?
-    @Published var emptyList: Bool = false
+    @Published var emptyList: Bool = true
  
     var activity: String = ""
     var date = Date()

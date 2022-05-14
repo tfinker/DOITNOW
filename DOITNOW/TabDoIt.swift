@@ -39,33 +39,44 @@ struct TabDoIt: View{
                 VStack{
                     Title(title: "DO IT NOW!")
 
-                    if let forecastDaily = weatherService.forecast?.list[0] {
+                    if let lat = locationManager.lastLocation?.coordinate.latitude,
+                        let lon = locationManager.lastLocation?.coordinate.longitude {
+                        Text("")
+                            .onAppear(perform: {self.weatherService.getWeather(lat: lat, lon: lon)})
+                            .onAppear(perform: {self.locationManager.getCity(lat: lat, lon: lon)})
 
-                        VStack{
-                            if let nextTask = activityList.nextTask,
-                               let nextDate = activityList.nextDate,
-                               let city = locationManager.currentCity {
-                                DoITHeader(nextTask: nextTask, nextDate: nextDate, city: city);
-                            }
-                            
-                            if let idString = forecastDaily.weather[0].id {
-                                DoITWeatherLine(
-                                    forecastDaily: forecastDaily,
-                                    condition: weatherService.getConditionName(weatherID: idString),
-                                    conditionImage: $conditionImage,
-                                    zoomTemp: $temp
-                                )
-                            }
-                            if let nextSport = activityList.nextTask,
-                               let temp = forecastDaily.main.temp,
-                               let condition = forecastDaily.weather[0].id {
-                                if let image = getPicture(sport: nextSport, temp: temp, weather: condition) {
-                                    Image(image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
+                           // .onAppear(perform: {self.weatherTime.getTime()})
+
+                            if let forecastDaily = weatherService.forecast?.list[0] {
+
+                                VStack{
+                                    if let nextTask = activityList.nextTask,
+                                       let nextDate = activityList.nextDate,
+                                       let city = locationManager.currentCity {
+                                        DoITHeader(nextTask: nextTask, nextDate: nextDate, city: city);
+                                    }
+                                    
+                                    if let idString = forecastDaily.weather[0].id {
+                                        DoITWeatherLine(
+                                            forecastDaily: forecastDaily,
+                                            condition: weatherService.getConditionName(weatherID: idString),
+                                            conditionImage: $conditionImage,
+                                            zoomTemp: $temp
+                                        )
+                                    }
+                                    if let nextSport = activityList.nextTask,
+                                       let temp = forecastDaily.main.temp,
+                                       let condition = forecastDaily.weather[0].id {
+                                        if let image = getPicture(sport: nextSport, temp: temp, weather: condition) {
+                                            Image(image)
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                        }
+                                    }
+
                                 }
+
                             }
-                        }
                     }
                 }
 
@@ -121,17 +132,8 @@ struct TabDoIt: View{
                 }.padding(.all)
                 Spacer()
             }
-
-        }.onAppear(perform:{
-            self.activityList.getAllTask()
-            self.activityList.getNextActivity()
-            if let lat = locationManager.lastLocation?.coordinate.latitude,
-                let lon = locationManager.lastLocation?.coordinate.longitude {
-                self.weatherService.getWeather(lat: lat, lon: lon);
-                self.locationManager.getCity(lat: lat, lon: lon);
-    //            self.weatherTime.getTime()
-            }
-        })
+        }.onAppear(perform: {self.activityList.getAllTask()})
+            .onAppear(perform: {self.activityList.getNextActivity()})
     }
 }
 
