@@ -9,45 +9,68 @@ import SwiftUI
 import MapKit
 
 struct TabPlanIt: View {
+    init(){
+        UITableView.appearance().backgroundColor = .clear
+    }
+    
     @StateObject private var activityList = TaskManager()
-
-
+    
+    func deleteactivity ( at offsets: IndexSet){
+        offsets.forEach { index in
+            let activity = activityList.tasks[index]
+            activityList.delete(activity)
+        }
+        activityList.getAllTask()
+    }
+   
     var body: some View {
 
         NavigationView {
-
-            ZStack(alignment: .top) {
-
-
+            ZStack{
                 Background()
+                    VStack{
+                       Spacer()
+                        
+                        NavigationLink(destination: SubmissionForm()) {
+                            Text("Add")
+                                .font(.title)
+                                
+                            }
+                        .foregroundColor(.blue)
+                        
+                        
+                        List{
+                            
+                        ForEach(activityList.tasks, id: \.id){
+                            task in
+                            VStack{
+                                Text(task.activity)
+                                    .font(.title)
+                            Text(task.date, format: Date.FormatStyle(date: .numeric))
+                                    .font(.subheadline)
+                            }
+                        }.onDelete(perform: deleteactivity)
+                        }
 
-
-
-                VStack{
-
-                    NavigationLink(destination: SubmissionForm()) {
-                        Text("Add")
-                    }
-                    .accentColor(.blue)
-
-                    
-                    List(activityList.tasks, id: \.id){
-                        task in
-                        Text(task.activity)
-                        Text(task.date, format: .dateTime)
-                    }
-
-                }.onAppear{activityList.getAllTask()}
-
-
+                       
+                   }
+                    .navigationBarTitle("PLAN IT NOW!", displayMode: .automatic)
+                
+                   .foregroundColor(.blue)
+                        
+               }.onAppear{activityList.getAllTask()}
+                  
             }
         }
-        .accentColor(.black)
-    }
-}
+        
+    
+
+
+
 
 struct planit_Previews: PreviewProvider {
     static var previews: some View {
         TabPlanIt()
     }
+}
 }

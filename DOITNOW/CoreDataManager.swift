@@ -28,8 +28,24 @@ class CoreDataManager{
 
             }
         }
-
-
+    
+    
+    func getTaskbyId(id: NSManagedObjectID)-> Tasks? {
+        do{
+            return try viewcontext.existingObject(with: id) as? Tasks
+            
+        } catch {
+            return nil
+        }
+    }
+    
+    
+    func deleteTasks(task: Tasks){
+        viewcontext.delete(task)
+        save()
+    }
+    
+    
     func getAllTask() -> [Tasks]{
 
         let request: NSFetchRequest<Tasks> = Tasks.fetchRequest()
