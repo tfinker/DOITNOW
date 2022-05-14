@@ -10,32 +10,33 @@ import Foundation
 
 struct ZoomView: View{
     
-    @State var image: Image? = Image("Arnold")
+    @Binding var sportImage: String?
     @Binding var temp: Double?
     @Binding var conditionImage: Image?
     
     var body: some View {
         
         ZStack{
-            //Background()
+            Background()
         
-        VStack{
-            HStack{
-                Text("\(self.temp! ,specifier: "%.0f")°C")
-                    .font(.title)
-                    .padding(.horizontal)
-                    .foregroundColor(.black)
-                conditionImage
-                    .font(.title)
-                    .padding(.horizontal)
-                    .foregroundColor(.black)
-                
+            VStack{
+                HStack{
+                    Text("\(self.temp! ,specifier: "%.0f")°C")
+                        .font(.title)
+                        .padding(.horizontal)
+                        .foregroundColor(.black)
+                    conditionImage
+                        .font(.title)
+                        .padding(.horizontal)
+                        .foregroundColor(.black)
+                    
+                }
+                if let image = sportImage{
+                    Image(image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
             }
-            Image("Arnold")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-
-        }
         }
     }
 }

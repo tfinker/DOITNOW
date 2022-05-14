@@ -13,9 +13,10 @@ struct TabDoIt: View{
     @State var showZoom = false
     @State var temp: Double?
     @State var conditionImage: Image?
+    @State var sportImage: String?
     @ObservedObject var activityList: TaskManager
     @State var nextDate: Date?
-
+    
     var body: some View {
 
         if weatherService.errorMessage != nil{
@@ -68,9 +69,11 @@ struct TabDoIt: View{
                                        let temp = forecastDaily.main.temp,
                                        let condition = forecastDaily.weather[0].id {
                                         if let image = getPicture(sport: nextSport, temp: temp, weather: condition) {
+                                        
                                             Image(image)
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fit)
+                                                .onAppear{self.sportImage = image}
                                         }
                                     }
 
@@ -88,7 +91,7 @@ struct TabDoIt: View{
                         Image(systemName: "magnifyingglass.circle.fill")
                     }
                     .sheet(isPresented: $showZoom) {
-                        ZoomView(temp: self.$temp, conditionImage: self.$conditionImage)
+                        ZoomView(sportImage: self.$sportImage, temp: self.$temp, conditionImage: self.$conditionImage)
                     }
                         .font(.title)
                         .offset(x: 140, y: 265)
