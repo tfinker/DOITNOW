@@ -4,17 +4,24 @@ import CoreLocation
 
 struct TabDoIt: View{
 
+    var activityList: TaskManager;
+
     @StateObject var locationManager = LocationManager()
 
-    @StateObject var weatherService = WeatherService()
-    @StateObject var weatherTime = WeatherTime()
+    var weatherService: WeatherService;
+
     @State var selected = "MORNING"
     @State var isExpanded = false
     @State var showZoom = false
     @State var temp: Double?
     @State var conditionImage: Image?
-    @State var activityList = TaskManager()
+    
     @State var nextDate: Date?
+    
+    init(taskManager: TaskManager){
+        self.activityList=taskManager
+        self.weatherService = WeatherService(taskManager: activityList)
+    }
 
     var body: some View {
 
@@ -31,9 +38,9 @@ struct TabDoIt: View{
                     Text("")
                         .onAppear(perform: {self.weatherService.getWeather(lat: lat, lon: lon)})
                         .onAppear(perform: {self.locationManager.getCity(lat: lat, lon: lon)})
-                        .onAppear(perform: {self.activityList.getAllTask()})
-                        .onAppear(perform: {self.activityList.getNextActivity()})
-                        .onAppear(perform: {self.weatherTime.getTime()})
+//                        .onAppear(perform: {self.activityList.getAllTask()})
+//                        .onAppear(perform: {self.activityList.getNextActivity()})
+//                        .onAppear(perform: {self.weatherTime.getTime()})
 
 
                         if let forecastDaily = weatherService.forecast?.list[0] {
@@ -176,10 +183,10 @@ struct TabDoIt: View{
 }
 
 
-struct TabDoIt_Previews: PreviewProvider {
-    static var previews: some View {
-        TabDoIt()
-    }
-}
+//struct TabDoIt_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TabDoIt()
+//    }
+//}
 
 

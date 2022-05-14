@@ -9,18 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @StateObject var database = TaskManager()
+    
 
     var body: some View {
-        TabView(selection: .constant(1)) {
+        TabView() {
             
-            TabDoIt()
+            TabDoIt(taskManager: database)
                 .tabItem ({
                     Label("DO IT", systemImage: "checkmark")
                     
                 })
                 .tag(1)
             
-            TabPlanIt()
+            TabPlanIt(activityList: database)
                 .tabItem {
                     Label("PLAN IT", systemImage: "plus")
                 }
