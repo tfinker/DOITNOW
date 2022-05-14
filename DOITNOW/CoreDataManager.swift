@@ -49,6 +49,9 @@ class CoreDataManager{
     func getAllTask() -> [Tasks]{
 
         let request: NSFetchRequest<Tasks> = Tasks.fetchRequest()
+        let sort = NSSortDescriptor(key: "date", ascending: true)
+        request.sortDescriptors = [sort]
+
         do{
             return try  viewcontext.fetch(request)
         }catch {

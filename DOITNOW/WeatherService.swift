@@ -8,13 +8,17 @@
 import SwiftUI
 import Foundation
 
-class WeatherService: ObservableObject{
+class WeatherService: ObservableObject {
+    
+    //@ObservedObject var taskManager: TaskManager
     @Published var errorMessage: String?
     @Published var forecast: WeatherData?
-    let locationManager = LocationManager()
-    let taskManager = TaskManager()
-
+   // var locationManager = LocationManager()
     
+//    init(taskManager: TaskManager){
+//        self.taskManager = taskManager;
+//    }
+//    
     func getWeather(lat: Double, lon: Double){
         let weatherURL = "https://api.openweathermap.org/data/2.5/forecast?&appid=1f2a622de40bc9dd2a29420d2bf1f881&units=metric"
         let urlString = "\(weatherURL)&lat=\(lat)&lon=\(lon)"

@@ -131,13 +131,13 @@ var pictureNames = [
     cycle2C: ["picture2C-1", "picture2C-2"],
     cycle3: ["picture3-1"],
     
-    walk1A: [],
-    walk1B: [],
-    walk1C: [],
-    walk2A: [],
-    walk2B: [],
-    walk2C: [],
-    walk3: [],
+    walk1A: ["Arnold"],
+    walk1B: ["Arnold"],
+    walk1C: ["Arnold"],
+    walk2A: ["Arnold"],
+    walk2B: ["Arnold"],
+    walk2C: ["Arnold"],
+    walk3: ["Arnold"],
     
     run1A: [],
     run1B: [],
@@ -163,7 +163,7 @@ func getRandomPictureForType(type: String)->String?{
 }
 
 
-func getTempIndex(temp: Int)->Int? {
+func getTempIndex(temp: Double)->Int? {
     if temp < 5 {
         return 0
     }
@@ -189,7 +189,7 @@ func getOptions(options: Dictionary<[Int],[String]>, code: Int )->[String]? {
     return nil;
 }
 
-func getImageString(imageOptions: [String], temp: Int) -> String? {
+func getImageString(imageOptions: [String], temp: Double) -> String? {
     if let index = getTempIndex(temp: temp){
         let type = imageOptions[index]
         return getRandomPictureForType(type: type)
@@ -198,16 +198,16 @@ func getImageString(imageOptions: [String], temp: Int) -> String? {
     return nil;
 }
 
-func getPicture(sport: String, temp: Int, weather: Int) -> String? {
+func getPicture(sport: String, temp: Double, weather: Int) -> String? {
     
     var table: Dictionary<[Int],[String]>;
     
     switch sport{
-        case "cycle":
+        case "Cycle":
             table = cycleOptions
-        case "walk":
+        case "Walk":
             table = walkOptions
-        case "run":
+        case "Run":
             table = runOptions
         default:
             return nil;
