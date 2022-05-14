@@ -28,20 +28,18 @@ class TaskManager: ObservableObject {
         activities.date = date
 
         CoreDataManager.shared.save()
-
+        getAllTask()
+        getNextActivity()
 
     }
-    
-    
-   
-    
     
     func delete(_ tasks: TaskViewManager) {
         let actualactivity = CoreDataManager.shared.getTaskbyId(id: tasks.id)
         if let actualactivity = actualactivity {
-        CoreDataManager.shared.deleteTasks(task: actualactivity)
-        
-    }
+            CoreDataManager.shared.deleteTasks(task: actualactivity)
+        }
+        getAllTask()
+        getNextActivity()
     }
     
     func getAllTask() {
@@ -53,17 +51,20 @@ class TaskManager: ObservableObject {
             for task in tasks {
                 if nextActivity == nil{
                     nextActivity = task
-                }else{
+                }
+                else {
                     if task.date < nextActivity!.date{
                     nextActivity = task
                     }
                 }
-            if nextActivity != nil{
-                nextTask = nextActivity!.activity
-                nextDate = nextActivity!.date
+                if nextActivity != nil {
+                    nextTask = nextActivity!.activity
+                    nextDate = nextActivity!.date
+                }
             }
-            }
-        }else{
+            emptyList = false
+        }
+        else{
             emptyList = true
         }
     }
