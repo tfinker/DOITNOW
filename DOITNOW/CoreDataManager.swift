@@ -9,23 +9,23 @@ import Foundation
 import CoreData
 
 class CoreDataManager{
-    
-    
+
+
     let persistentContainer: NSPersistentContainer
-    
+
     static  let shared = CoreDataManager()
-    
+
     var viewcontext : NSManagedObjectContext {
         return persistentContainer.viewContext
     }
-    
+
         func save(){
             do{
               return try viewcontext.save()
             } catch {
                 viewcontext.rollback()
                 print(error.localizedDescription)
-                
+
             }
         }
     
@@ -47,15 +47,18 @@ class CoreDataManager{
     
     
     func getAllTask() -> [Tasks]{
-        
+
         let request: NSFetchRequest<Tasks> = Tasks.fetchRequest()
+        let sort = NSSortDescriptor(key: "date", ascending: true)
+        request.sortDescriptors = [sort]
+
         do{
             return try  viewcontext.fetch(request)
         }catch {
             return []
         }
     }
-    
+
     private init(){
        persistentContainer = NSPersistentContainer(name: "CoreDataModel")
        persistentContainer.loadPersistentStores{(description, error) in
@@ -66,4 +69,3 @@ class CoreDataManager{
        }
     }
 }
-
