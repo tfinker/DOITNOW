@@ -51,7 +51,8 @@ class TaskManager: ObservableObject {
             for task in tasks {
                 if nextActivity == nil{
                     nextActivity = task
-                }else{
+                }
+                else {
                     if task.date < nextActivity!.date{
                     nextActivity = task
                     }
@@ -60,12 +61,10 @@ class TaskManager: ObservableObject {
                     nextTask = nextActivity!.activity
                     nextDate = nextActivity!.date
                 }
-            if nextActivity != nil{
-                nextTask = nextActivity!.activity
-                nextDate = nextActivity!.date
             }
-            }
-        }else{
+            emptyList = false
+        }
+        else{
             emptyList = true
         }
     }
@@ -87,5 +86,6 @@ class TaskManager: ObservableObject {
 
     
 }
+
 
 

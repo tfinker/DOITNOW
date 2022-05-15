@@ -86,6 +86,7 @@
 			children = (
 				C8C16AB32806DA820061D888 /* DOITNOWApp.swift */,
 				1969073C2812C7FB00490CE1 /* TaskManager.swift */,
+				C8C16AC32806EB0C0061D888 /* FormSubmission.swift */,
 				C8ACC058280EED9000B8EF47 /* TabPlanIt.swift */,
 				1969073A2812C79400490CE1 /* CoreDataManager.swift */,
 				C8C16AB52806DA820061D888 /* ContentView.swift */,
@@ -93,7 +94,6 @@
 				C827C17628300BC800FECBAE /* DoITWeatherLine.swift */,
 				C827C174282FFB4600FECBAE /* DoITHeader.swift */,
 				999483F32816E8930074E8FA /* ZoomView.swift */,
-				C8C16AC32806EB0C0061D888 /* FormSubmission.swift */,
 				C8CC0F75281828C1000264B1 /* ClothesAlgorithm.swift */,
 				C8ACC05A280EF0FF00B8EF47 /* ViewBackground.swift */,
 				C8C16AC12806E4550061D888 /* ViewTitle.swift */,

@@ -22,8 +22,8 @@ struct TabPlanIt: View {
     }
    
     var body: some View {
-
-        NavigationView {
+        
+        NavigationView{
             ZStack{
                 Background()
                 
