@@ -4,9 +4,9 @@ import CoreLocation
 
 struct TabDoIt: View{
 
-    @StateObject var locationManager = LocationManager()
+    @ObservedObject var locationManager = LocationManager()
 
-    @StateObject var weatherService = WeatherService()
+    @ObservedObject var weatherService = WeatherService()
     //@StateObject var weatherTime = WeatherTime()
     @State var selected = "MORNING"
     @State var isExpanded = false
@@ -14,6 +14,7 @@ struct TabDoIt: View{
     @State var temp: Double?
     @State var conditionImage: Image?
     @State var sportImage: String?
+    @State var zoomImage: String?
     @ObservedObject var activityList: TaskManager
     @State var nextDate: Date?
     
@@ -74,6 +75,7 @@ struct TabDoIt: View{
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fit)
                                                 .onAppear{self.sportImage = image}
+                                                .onAppear{self.zoomImage = "\(image)-zoom"}
                                         }
                                     }
 
@@ -91,7 +93,7 @@ struct TabDoIt: View{
                         Image(systemName: "magnifyingglass.circle.fill")
                     }
                     .sheet(isPresented: $showZoom) {
-                        ZoomView(sportImage: self.$sportImage, temp: self.$temp, conditionImage: self.$conditionImage)
+                        ZoomView(sportImage: $zoomImage, temp: self.$temp, conditionImage: self.$conditionImage)
                     }
                         .font(.title)
                         .offset(x: 140, y: 265)
